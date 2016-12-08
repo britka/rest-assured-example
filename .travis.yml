@@ -1,2 +1,2 @@
 language: java
-mvn clean integration-test -Dtest=*
+script: mvn clean integration-test -Dtest=*
