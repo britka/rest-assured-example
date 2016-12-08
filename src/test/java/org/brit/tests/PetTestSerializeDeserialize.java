@@ -12,11 +12,13 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static org.brit.tests.Constants.BASE_URL;
+import static org.brit.tests.actions.pets.PetsActions.PET_ENDPOINT;
 
 /**
  * Created by sbryt on 9/1/2016.
  */
-public class PetTestSerializeDeserialize extends BaseTestClass {
+public class PetTestSerializeDeserialize {
 
     RequestSpecification requestSpecification = new RequestSpecBuilder()
             .addHeader("api_key", Authentication.Login("britks", "password"))
@@ -40,7 +42,7 @@ public class PetTestSerializeDeserialize extends BaseTestClass {
     @Test
     public void addNewPet() {
         Pet petRequest = new Pet()
-                .id(8888885L)
+                .id("8888885")
                 .name("MyLittlePet")
                 .status(StatusEnum.available);
 
@@ -55,7 +57,7 @@ public class PetTestSerializeDeserialize extends BaseTestClass {
     public void addNewPet1() {
         Pet petResponse = given(requestSpecification)
                 .body(new Pet()
-                        .id(88188805L)
+                        .id("88188805")
                         .name("MyLittlePet2")
                         .status(StatusEnum.available))
                 .post(PET_ENDPOINT).as(Pet.class);
@@ -74,7 +76,7 @@ public class PetTestSerializeDeserialize extends BaseTestClass {
     public void deletePetItem() {
         Pet petResponse = given(requestSpecification)
                 .body(new Pet()
-                        .id(88188805L)
+                        .id("88188805")
                         .name("MyLittlePet2")
                         .status(StatusEnum.available))
                 .post(PET_ENDPOINT).as(Pet.class);

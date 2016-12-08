@@ -7,6 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.brit.tests.Constants.BASE_URL;
+import static org.brit.tests.actions.pets.PetsActions.PET_ENDPOINT;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -17,7 +19,7 @@ import static org.hamcrest.CoreMatchers.is;
 /**
  * Just pure rest-assured tests
  */
-public class PetTests extends BaseTestClass {
+public class PetTests {
 
 
     @Test
@@ -59,7 +61,7 @@ public class PetTests extends BaseTestClass {
                 .then()
                 .log().body()
                 .statusCode(200)
-                .body("name", equalTo("Fido"),
+                .body("name", equalTo("Fido6"),
                         "id", is(499278344),
                         "status", equalTo("available"));
     }

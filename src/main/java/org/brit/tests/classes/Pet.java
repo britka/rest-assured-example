@@ -37,14 +37,14 @@ import java.util.Random;
  * Pet
  */
 public class Pet {
-    private Long id = null;
+    private String id = null;
     private Category category = null;
     private String name = null;
     private List<String> photoUrls = new ArrayList<String>();
     private List<Tag> tags = new ArrayList<Tag>();
     private StatusEnum status = null;
 
-    public Pet(Long id, Category category, String name, List<String> photoUrls, List<Tag> tags, StatusEnum status) {
+    public Pet(String id, Category category, String name, List<String> photoUrls, List<Tag> tags, StatusEnum status) {
         this.id = id;
         this.category = category;
         this.name = name;
@@ -54,12 +54,12 @@ public class Pet {
     }
 
     public Pet() {
-        id = new Random().nextLong();
+        id = RandomStringUtils.randomNumeric(10);
         name = "PetName" + RandomStringUtils.randomAlphabetic(8);
         status = StatusEnum.available;
     }
 
-    public Pet id(Long id) {
+    public Pet id(String id) {
         this.id = id;
         return this;
     }
@@ -70,11 +70,11 @@ public class Pet {
      * @return id
      **/
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

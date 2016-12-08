@@ -8,13 +8,15 @@ import org.brit.tests.classes.StatusEnum;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.brit.tests.Constants.*;
+import static org.brit.tests.actions.pets.PetsActions.PET_ENDPOINT;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 
 /**
  * Created by sbryt on 8/26/2016.
  */
-public class PetClassWithRequestSpec extends BaseTestClass {
+public class PetClassWithRequestSpec {
     RequestSpecification requestSpecification = new RequestSpecBuilder()
             .setBaseUri(BASE_URL)
             .setContentType(ContentType.JSON)
@@ -43,7 +45,7 @@ public class PetClassWithRequestSpec extends BaseTestClass {
                 .get(PET_ENDPOINT + "/{petId}")
                 .then()
                 .statusCode(200)
-                .body("name", equalTo("Fido"),
+                .body("name", equalTo("Fido6"),
                         "id", is(499278344),
                         "status", equalTo("available"));
     }

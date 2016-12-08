@@ -5,7 +5,6 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.brit.tests.Authentication;
-import org.brit.tests.BaseTestClass;
 import org.brit.tests.classes.MessageResponse;
 import org.brit.tests.classes.Pet;
 import org.brit.tests.classes.StatusEnum;
@@ -13,32 +12,26 @@ import org.brit.tests.classes.StatusEnum;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.requestSpecification;
+import static org.brit.tests.Constants.*;
 
 /**
  * Created by sbryt on 9/9/2016.
  */
 public class PetsActions {
-    public static String PET_ENDPOINT = BaseTestClass.BASE_URL + "/pet";
-
+    public static String PET_ENDPOINT = BASE_URL + "/pet";
     private RequestSpecification requestSpecification;
 
     public PetsActions() {
         requestSpecification = new RequestSpecBuilder()
                 .addHeader("api_key", Authentication.Login("britks", "password"))
-                .setBaseUri(BaseTestClass.BASE_URL)
+                .setBaseUri(BASE_URL)
                 .setContentType(ContentType.JSON)
                 .log(LogDetail.ALL).build();
     }
 
     public Pet addNewPet(Pet request) {
-        Pet petRequest = new Pet()
-                .id(8888885L)
-                .name("MyLittlePet")
-                .status(StatusEnum.available);
-
         return given(requestSpecification)
-                .body(petRequest)
+                .body(request)
                 .post(PET_ENDPOINT).as(Pet.class);
     }
 
@@ -66,12 +59,12 @@ public class PetsActions {
 
 
     public boolean isPetExists(Pet pet) {
-        return isPetExists(pet.getId().toString());
+        return isPetExists(pet.getId());
     }
 
     public boolean isPetExists(String petId) {
-        return given(requestSpecification)
-                 .pathParam("petId", petId)
+        return !given(requestSpecification)
+                .pathParam("petId", petId)
                 .get(PET_ENDPOINT + "/{petId}")
                 .then()
                 .extract().body().jsonPath().getObject("", MessageResponse.class)
