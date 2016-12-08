@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
  */
 public class Authentication {
 
-    public static String Login(String userName, String password) {
+    public static String Login(final String userName, final String password) {
         HashMap<String, Object> map =
                 new HashMap<String, Object>() {{
                     put("scope", "email");
